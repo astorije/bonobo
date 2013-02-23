@@ -12,20 +12,21 @@ $(document).ready(function() {
   var currentScene = 'none'; // sirene - wind
   var playing = false;
 
-  if (currentScene == "sirene") {
 
-    onPress(Keyboard.A, function() {
+  onPress(Keyboard.A, function() {
+    if (currentScene == "sirene")
       $("#note1")[0].play();
-    });
+  });
 
-    onPress(Keyboard.Z, function() {
+  onPress(Keyboard.Z, function() {
+    if (currentScene == "sirene")
       $("#note2")[0].play();
-    });
+  });
 
-    onPress(Keyboard.E, function() {
+  onPress(Keyboard.E, function() {
+    if (currentScene == "sirene")
       $("#note3")[0].play();
-    });
-  }
+  });
 
 
   $("#canvas").hide();
