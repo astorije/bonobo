@@ -12,6 +12,14 @@ $(document).ready(function() {
   var currentScene = 'none'; // sirene - wind
   var playing = false;
 
+  onPress(Keyboard.W, function() {
+    currentScene = 'sirene';
+  });
+
+  onPress(Keyboard.X, function() {
+    currentScene = 'wind';
+  });
+
 
   onPress(Keyboard.A, function() {
     if (currentScene == "sirene")
