@@ -9,7 +9,7 @@ $(document).ready(function() {
       element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
   }
 
-  var currentScene = 'none'; // mermaid - wind
+  var currentScene = 'none'; // none - mermaid - wind
   var playing = false;
 
   resetOtherScenes(currentScene);
@@ -25,8 +25,10 @@ $(document).ready(function() {
           y: Math.random() * Math.random() * 900
         }));
     }
-    else if(except != "mermaid") {
-      mermaidAttempt = [];
+    
+    if(except != "mermaid") {
+      mermaidAttempt = "";
+      mermaidWon = false;
     }
   }
 
@@ -36,7 +38,7 @@ $(document).ready(function() {
       currentScene = "mermaid";
       resetOtherScenes(currentScene);
 
-      $("#note2")[0].play();
+      startMermaidSequenceIfNeeded();
     }
     else if(e.keyCode == Keyboard.W) {
       currentScene = "wind";
@@ -47,92 +49,63 @@ $(document).ready(function() {
   // Event loop
   $(document).keydown(function(e) {
     if (currentScene == "mermaid") {
-      if(e.keyCode == Keyboard.UP) {
-        $("#note1")[0].play();
-        mermaidAttempt.push(1);
-      }
-      else if(e.keyCode == Keyboard.LEFT) {
-        $("#note2")[0].play();
-        mermaidAttempt.push(2);
-      }
-      else if(e.keyCode == Keyboard.RIGHT) {
-        $("#note3")[0].play();
-        mermaidAttempt.push(3);
-      }
+      if(!mermaidWon)
+        if(e.keyCode == Keyboard.UP) {
+          $("#note1")[0].play();
+          mermaidAttempt += "1";
+          startMermaidSequenceIfNeeded();
+        }
+        else if(e.keyCode == Keyboard.LEFT) {
+          $("#note2")[0].play();
+          mermaidAttempt += "2";
+          startMermaidSequenceIfNeeded();
+        }
+        else if(e.keyCode == Keyboard.RIGHT) {
+          $("#note3")[0].play();
+          mermaidAttempt += "3";
+          startMermaidSequenceIfNeeded();
+        }
     }
     else if(currentScene == "wind") {
-      if(e.keyCode == Keyboard.UP) {
+      if(e.keyCode == Keyboard.SPACE) {
         if(cloudSpeed < 100)
           cloudSpeed += 10;
       }
     }
   });
 
+  // Fullscreen management
   $("#canvas").hide();
-
   $("#start").click(function() {
     launchFullScreen($("#canvas")[0]);
     return false;
   });
-
   $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange',function() {
     $("#canvas").toggle();
     $("#start").text('Hey, go back to fullscreen!');
     $("#start").toggle();
     playing = !playing;
   });
-
   $(window).bind("resize", function(){
     var w = $(window).width();
-
     $("#canvas").css("width", w + "px");
     $("#canvas").css("height", w*9/16 + "px"); 
   });
 
+  // Render loop
   var FPS = 30;
   setInterval(function() {
     update();
     draw();
   }, 1000/FPS);
 
-  function createCloud(val) {
-    val = val || {};
-
-    cloud = {};
-    cloud.x = val.x || -100;
-    cloud.y = val.y || 0;
-    cloud.source = clouds.length % 2 == 0 ? "nuage2.png" : "nuage3.png";
-    cloud.scale = cloud.y / 900;
-
-    cloud.draw = function() {
-      
-      $("#canvas").drawImage({
-        source: this.source,
-        x: this.x,
-        y: this.y,
-        scale: this.scale
-      });
-    };
-
-    cloud.update = function() {
-   //   cloud.x += I.xVelocity;
-   //   cloud.y += I.yVelocity;
-
-      this.x += cloudSpeed * Math.sqrt(this.scale);
-      if(this.x > 2000) this.x = -100;
-    };
-
-    return cloud;
-  }
-
   function update() {
     if(!playing) return;
 
-    if(currentScene == "wind") {
-      clouds.forEach(function(cloud) {
-        cloud.update();
-      });
-    }
+    if(currentScene == "wind")
+      windUpdate();
+    else if(currentScene == "mermaid")
+      mermaidUpdate();
 
   }
 
@@ -141,23 +114,10 @@ $(document).ready(function() {
 
     $("canvas").clearCanvas();
 
-    if(currentScene == "wind") {
-      clouds.forEach(function(cloud) {
-        cloud.draw();
-      });
-
-      if(cloudSpeed >= 100) {
-        $("#canvas").drawText({
-          fillStyle: "#9cf",
-          strokeStyle: "#25a",
-          strokeWidth: 2,
-          x: 800,
-          y: 450,
-          font: "48pt sans-serif",
-          text: "You shall pass now..."
-        });
-      }
-    }
+    if(currentScene == "wind")
+      windDraw();
+    else if(currentScene == "mermaid")
+      mermaidDraw();
 }
 
 });
