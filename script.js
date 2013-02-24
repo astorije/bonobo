@@ -31,12 +31,23 @@ $(document).ready(function() {
       mermaidWon = false;
     }
     
-    if(except != "kraken") {
-    }
+    if(except != "kraken")
+      krakenReset();
   }
 
   // Scene selection
   $(document).keydown(function(e) {
+    if(e.keyCode == Keyboard.N) {
+      if($("#canvas").is(":hidden")) {
+        $("#intro").hide();
+
+        launchFullScreen($("#canvas")[0]);
+
+        $("#gofullscreen").text('Reprends ta quête, étranger !');
+        $("gofullscreen").show();
+      }
+    }
+
     if(e.keyCode == Keyboard.W) {
       currentScene = "wind";
       resetOtherScenes(currentScene);
@@ -54,7 +65,7 @@ $(document).ready(function() {
   });
 
   // Event loop
-  $(document).keydown(function(e) {
+  $(document).keyup(function(e) {
     if(currentScene == "wind") {
       if(e.keyCode == Keyboard.SPACE) {
         if(cloudSpeed < 100)
@@ -78,22 +89,24 @@ $(document).ready(function() {
           mermaidAttempt += "3";
           startMermaidSequenceIfNeeded();
         }
-      else if (currentScene == "kraken") {
-      }
     }
+    else if (currentScene == "kraken") {
+      krakenEvents(e);
+    }
+    e.preventDefault();
   });
 
   // Fullscreen management
   $("#canvas").hide();
-  $("#start").click(function() {
+  $("#gofullscreen").click(function(e) {
     launchFullScreen($("#canvas")[0]);
-    return false;
+    e.preventDefault();
   });
   $(document).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange',function() {
-    $("#canvas").toggle();
-    $("#start").text('Hey, go back to fullscreen!');
-    $("#start").toggle();
+
     playing = !playing;
+    $("#canvas").toggle(playing);
+
   });
   $(window).bind("resize", function(){
     var w = $(window).width();
@@ -115,7 +128,7 @@ $(document).ready(function() {
       windUpdate();
     else if(currentScene == "mermaid")
       mermaidUpdate();
-    else if(currentScene == "mermaid")
+    else if(currentScene == "kraken")
       krakenUpdate();
 
   }
