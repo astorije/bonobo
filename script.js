@@ -9,30 +9,62 @@ $(document).ready(function() {
       element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
   }
 
-  var currentScene = 'none'; // sirene - wind
+  var currentScene = 'none'; // mermaid - wind
   var playing = false;
+
+  resetOtherScenes(currentScene);
+
+  function resetOtherScenes(except) {
+    if(except != "wind") {
+      cloudSpeed = 0;
+      clouds = [];
+
+      for(var i = 0; i < 20; ++i)
+        clouds.push(createCloud({
+          x: -1000 * Math.random(),
+          y: Math.random() * Math.random() * 900
+        }));
+    }
+    else if(except != "mermaid") {
+      mermaidAttempt = [];
+    }
+  }
 
   // Scene selection
   $(document).keydown(function(e) {
-    if(e.keyCode == Keyboard.X)
-      currentScene = 'sirene';
-    else if(e.keyCode == Keyboard.W)
-      currentScene = 'wind';
+    if(e.keyCode == Keyboard.X) {
+      currentScene = "mermaid";
+      resetOtherScenes(currentScene);
+
+      $("#note2")[0].play();
+    }
+    else if(e.keyCode == Keyboard.W) {
+      currentScene = "wind";
+      resetOtherScenes(currentScene);
+    }
   });
 
   // Event loop
   $(document).keydown(function(e) {
-    if (currentScene == "sirene") {
-      if(e.keyCode == Keyboard.UP)
+    if (currentScene == "mermaid") {
+      if(e.keyCode == Keyboard.UP) {
         $("#note1")[0].play();
-      else if(e.keyCode == Keyboard.LEFT)
+        mermaidAttempt.push(1);
+      }
+      else if(e.keyCode == Keyboard.LEFT) {
         $("#note2")[0].play();
-      else if(e.keyCode == Keyboard.RIGHT)
-        $("note3")[0].play();
+        mermaidAttempt.push(2);
+      }
+      else if(e.keyCode == Keyboard.RIGHT) {
+        $("#note3")[0].play();
+        mermaidAttempt.push(3);
+      }
     }
     else if(currentScene == "wind") {
-      if(e.keyCode == Keyboard.UP)
-      {}
+      if(e.keyCode == Keyboard.UP) {
+        if(cloudSpeed < 100)
+          cloudSpeed += 10;
+      }
     }
   });
 
@@ -67,15 +99,18 @@ $(document).ready(function() {
     val = val || {};
 
     cloud = {};
-    cloud.x = val.x || 0;
+    cloud.x = val.x || -100;
     cloud.y = val.y || 0;
+    cloud.source = clouds.length % 2 == 0 ? "nuage2.png" : "nuage3.png";
+    cloud.scale = cloud.y / 900;
 
     cloud.draw = function() {
       
       $("#canvas").drawImage({
-        source: "nuage2.png",
+        source: this.source,
         x: this.x,
-        y: this.y
+        y: this.y,
+        scale: this.scale
       });
     };
 
@@ -83,23 +118,12 @@ $(document).ready(function() {
    //   cloud.x += I.xVelocity;
    //   cloud.y += I.yVelocity;
 
-      cloud.x += 20;
-      cloud.x %= 1600;
+      this.x += cloudSpeed * Math.sqrt(this.scale);
+      if(this.x > 2000) this.x = -100;
     };
 
     return cloud;
   }
-
-
-  // Scène vent
-  var clouds = []
-
-  clouds.push(createCloud({y: 50}));
-  clouds.push(createCloud({y: 250}));
-
-  clouds.forEach(function(cloud) {
-    cloud.update();
-  });
 
   function update() {
     if(!playing) return;
@@ -121,6 +145,18 @@ $(document).ready(function() {
       clouds.forEach(function(cloud) {
         cloud.draw();
       });
+
+      if(cloudSpeed >= 100) {
+        $("#canvas").drawText({
+          fillStyle: "#9cf",
+          strokeStyle: "#25a",
+          strokeWidth: 2,
+          x: 800,
+          y: 450,
+          font: "48pt sans-serif",
+          text: "You shall pass now..."
+        });
+      }
     }
 }
 
