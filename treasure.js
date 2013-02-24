@@ -17,10 +17,13 @@ function treasureUpdate() {
 }
 
 function treasureDraw() {
-  $("#canvas").drawImage({
-    source: "ile" + treasureCurrentStep + ".png",
-    fromCenter: false
-  });
+  for(var i=treasureSteps; i > 0; --i)
+    if(i >= treasureCurrentStep)
+      $("#canvas").drawImage({
+        source: "ile" + i + ".png",
+        fromCenter: false
+      });
+
   if(treasureCurrentStep >= treasureSteps)
     $("#canvas").drawText({
       fillStyle: "#9cf",

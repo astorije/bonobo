@@ -2,7 +2,7 @@ var krakenDistance;
 var krakenDefeated;
 
 function krakenReset() {
-  krakenDistance = 1.0
+  krakenDistance = 0.2;
   krakenDefeated = false;
 }
 
@@ -22,21 +22,21 @@ function krakenUpdate() {
 }
 
 function krakenDraw() {
-  if(!krakenDefeated) {
-    $("#canvas").drawRect({
-      fillStyle: "#8a96d1",
-      width: 1600,
-      height: 900,
-      fromCenter: false
-    });
-    $("#canvas").drawEllipse({
-      fillStyle: "#c33",
+  $("#canvas").drawRect({
+    fillStyle: "#8a96d1",
+    width: 1600,
+    height: 900,
+    fromCenter: false
+  });
+
+  if(!krakenDefeated)
+    $("#canvas").drawImage({
+      source: "kraken.png",
       x: 800, y: 450,
       width: 800,
       height: 800,
       scale: krakenDistance
     });
-  }
   else
     $("#canvas").drawText({
       fillStyle: "#9cf",
@@ -45,6 +45,6 @@ function krakenDraw() {
       x: 800,
       y: 450,
       font: "48pt sans-serif",
-      text: "You defeated the Horny Kraken!"
+      text: "Le sang a coulé, le kraken est mort !"
     });
 }

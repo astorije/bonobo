@@ -1,3 +1,11 @@
+var mermaidScale = 1.0;
+
+function mermaidReset() {
+  mermaidAttempt = "";
+  mermaidWon = false;
+  mermaidScale = 1.0;
+}
+
 function startMermaidSequenceIfNeeded() {
   setTimeout(function() {
     if(mermaidAttempt == "2312")
@@ -10,10 +18,18 @@ function startMermaidSequenceIfNeeded() {
 }
 
 function mermaidUpdate() {
-  
+  if(mermaidWon)
+    mermaidScale /= 1.1;
 }
 
 function mermaidDraw() {
+  $("#canvas").drawRect({
+      fillStyle: "#8a96d1",
+      width: 1600,
+      height: 900,
+      fromCenter: false
+    });
+
   if(mermaidWon)
     $("#canvas").drawText({
       fillStyle: "#9cf",
@@ -22,9 +38,26 @@ function mermaidDraw() {
       x: 800,
       y: 450,
       font: "48pt sans-serif",
-      text: "You Sir, you ain't no shitty musician!"
+      text: "Regarde, la sirène s'enfuit !"
     });
-  else
+
+  $("#canvas").drawImage({
+    source: "sirene0.png",
+    fromCenter: false,
+    height: 900,
+    width: 1600,
+    scale: mermaidScale
+  });
+
+  if(!mermaidWon)
+    $("#canvas").drawImage({
+      source: "sirene1.png",
+      fromCenter: false,
+      height: 900,
+      width: 1600
+    });
+
+  if(mermaidWon)
     $("#canvas").drawText({
       fillStyle: "#9cf",
       strokeStyle: "#25a",
@@ -32,6 +65,6 @@ function mermaidDraw() {
       x: 800,
       y: 450,
       font: "48pt sans-serif",
-      text: "Repeat after me..."
+      text: "Regarde, la sirène s'enfuit !"
     });
 }

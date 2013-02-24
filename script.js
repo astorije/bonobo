@@ -9,7 +9,7 @@ $(document).ready(function() {
       element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
   }
 
-  var currentScene = 'none'; // none - mermaid - wind - kraken
+  var currentScene = 'none'; // none - mermaid - wind - kraken - reef - treasure - cave
   var playing = false;
 
   resetOtherScenes(currentScene);
@@ -26,10 +26,8 @@ $(document).ready(function() {
         }));
     }
     
-    if(except != "mermaid") {
-      mermaidAttempt = "";
-      mermaidWon = false;
-    }
+    if(except != "mermaid")
+      mermaidReset();
     
     if(except != "kraken")
       krakenReset();
@@ -40,7 +38,7 @@ $(document).ready(function() {
     if(except != "reef")
       reefReset();
     
-    if(except != "reef")
+    if(except != "cave")
       caveReset();
   }
 
@@ -95,17 +93,17 @@ $(document).ready(function() {
     }
     else if (currentScene == "mermaid") {
       if(!mermaidWon)
-        if(e.keyCode == Keyboard.UP) {
+        if(e.keyCode == Keyboard.A) {
           $("#note1")[0].play();
           mermaidAttempt += "1";
           startMermaidSequenceIfNeeded();
         }
-        else if(e.keyCode == Keyboard.LEFT) {
+        else if(e.keyCode == Keyboard.Z) {
           $("#note2")[0].play();
           mermaidAttempt += "2";
           startMermaidSequenceIfNeeded();
         }
-        else if(e.keyCode == Keyboard.RIGHT) {
+        else if(e.keyCode == Keyboard.E) {
           $("#note3")[0].play();
           mermaidAttempt += "3";
           startMermaidSequenceIfNeeded();
@@ -186,6 +184,8 @@ $(document).ready(function() {
       krakenDraw();
     else if(currentScene == "treasure")
       treasureDraw();
+    else if(currentScene == "reef")
+      reefDraw();
     else if(currentScene == "cave")
       caveDraw();
   }
