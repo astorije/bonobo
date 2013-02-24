@@ -36,6 +36,9 @@ $(document).ready(function() {
     
     if(except != "treasure")
       treasureReset();
+    
+    if(except != "reef")
+      reefReset();
   }
 
   // Scene selection
@@ -67,6 +70,10 @@ $(document).ready(function() {
     }
     else if(e.keyCode == Keyboard.V) {
       currentScene = "treasure";
+      resetOtherScenes(currentScene);
+    }
+    else if(e.keyCode == Keyboard.B) {
+      currentScene = "reef";
       resetOtherScenes(currentScene);
     }
   });
@@ -102,6 +109,9 @@ $(document).ready(function() {
     }
     else if (currentScene == "treasure") {
       treasureEvents(e);
+    }
+    else if (currentScene == "reef") {
+      reefEvents(e);
     }
     e.preventDefault();
   });
@@ -142,7 +152,8 @@ $(document).ready(function() {
       krakenUpdate();
     else if(currentScene == "treasure")
       treasureUpdate();
-
+    else if(currentScene == "reef")
+      reefUpdate();
   }
 
   function draw() {
@@ -163,6 +174,8 @@ $(document).ready(function() {
       krakenDraw();
     else if(currentScene == "treasure")
       treasureDraw();
+    else if(currentScene == "reef")
+      reefDraw();
   }
 
 });
