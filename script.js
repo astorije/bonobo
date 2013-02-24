@@ -39,6 +39,9 @@ $(document).ready(function() {
     
     if(except != "reef")
       reefReset();
+    
+    if(except != "reef")
+      caveReset();
   }
 
   // Scene selection
@@ -74,6 +77,10 @@ $(document).ready(function() {
     }
     else if(e.keyCode == Keyboard.B) {
       currentScene = "reef";
+      resetOtherScenes(currentScene);
+    }
+    else if(e.keyCode == Keyboard.Q) {
+      currentScene = "cave";
       resetOtherScenes(currentScene);
     }
   });
@@ -112,6 +119,9 @@ $(document).ready(function() {
     }
     else if (currentScene == "reef") {
       reefEvents(e);
+    }
+    else if (currentScene == "cave") {
+      caveEvents(e);
     }
     e.preventDefault();
   });
@@ -154,6 +164,8 @@ $(document).ready(function() {
       treasureUpdate();
     else if(currentScene == "reef")
       reefUpdate();
+    else if(currentScene == "cave")
+      caveUpdate();
   }
 
   function draw() {
@@ -174,8 +186,8 @@ $(document).ready(function() {
       krakenDraw();
     else if(currentScene == "treasure")
       treasureDraw();
-    else if(currentScene == "reef")
-      reefDraw();
+    else if(currentScene == "cave")
+      caveDraw();
   }
 
 });
