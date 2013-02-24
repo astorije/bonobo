@@ -9,7 +9,7 @@ $(document).ready(function() {
       element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
   }
 
-  var currentScene = 'none'; // none - mermaid - wind
+  var currentScene = 'none'; // none - mermaid - wind - kraken
   var playing = false;
 
   resetOtherScenes(currentScene);
@@ -30,25 +30,38 @@ $(document).ready(function() {
       mermaidAttempt = "";
       mermaidWon = false;
     }
+    
+    if(except != "kraken") {
+    }
   }
 
   // Scene selection
   $(document).keydown(function(e) {
-    if(e.keyCode == Keyboard.X) {
+    if(e.keyCode == Keyboard.W) {
+      currentScene = "wind";
+      resetOtherScenes(currentScene);
+    }
+    else if(e.keyCode == Keyboard.X) {
       currentScene = "mermaid";
       resetOtherScenes(currentScene);
 
       startMermaidSequenceIfNeeded();
     }
-    else if(e.keyCode == Keyboard.W) {
-      currentScene = "wind";
+    else if(e.keyCode == Keyboard.C) {
+      currentScene = "kraken";
       resetOtherScenes(currentScene);
     }
   });
 
   // Event loop
   $(document).keydown(function(e) {
-    if (currentScene == "mermaid") {
+    if(currentScene == "wind") {
+      if(e.keyCode == Keyboard.SPACE) {
+        if(cloudSpeed < 100)
+          cloudSpeed += 10;
+      }
+    }
+    else if (currentScene == "mermaid") {
       if(!mermaidWon)
         if(e.keyCode == Keyboard.UP) {
           $("#note1")[0].play();
@@ -65,11 +78,7 @@ $(document).ready(function() {
           mermaidAttempt += "3";
           startMermaidSequenceIfNeeded();
         }
-    }
-    else if(currentScene == "wind") {
-      if(e.keyCode == Keyboard.SPACE) {
-        if(cloudSpeed < 100)
-          cloudSpeed += 10;
+      else if (currentScene == "kraken") {
       }
     }
   });
@@ -106,6 +115,8 @@ $(document).ready(function() {
       windUpdate();
     else if(currentScene == "mermaid")
       mermaidUpdate();
+    else if(currentScene == "mermaid")
+      krakenUpdate();
 
   }
 
@@ -118,6 +129,8 @@ $(document).ready(function() {
       windDraw();
     else if(currentScene == "mermaid")
       mermaidDraw();
+    else if(currentScene == "kraken")
+      krakenDraw();
 }
 
 });
