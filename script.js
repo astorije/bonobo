@@ -33,6 +33,9 @@ $(document).ready(function() {
     
     if(except != "kraken")
       krakenReset();
+    
+    if(except != "treasure")
+      treasureReset();
   }
 
   // Scene selection
@@ -60,6 +63,10 @@ $(document).ready(function() {
     }
     else if(e.keyCode == Keyboard.C) {
       currentScene = "kraken";
+      resetOtherScenes(currentScene);
+    }
+    else if(e.keyCode == Keyboard.V) {
+      currentScene = "treasure";
       resetOtherScenes(currentScene);
     }
   });
@@ -92,6 +99,9 @@ $(document).ready(function() {
     }
     else if (currentScene == "kraken") {
       krakenEvents(e);
+    }
+    else if (currentScene == "treasure") {
+      treasureEvents(e);
     }
     e.preventDefault();
   });
@@ -130,6 +140,8 @@ $(document).ready(function() {
       mermaidUpdate();
     else if(currentScene == "kraken")
       krakenUpdate();
+    else if(currentScene == "treasure")
+      treasureUpdate();
 
   }
 
@@ -138,12 +150,19 @@ $(document).ready(function() {
 
     $("canvas").clearCanvas();
 
-    if(currentScene == "wind")
+    if(currentScene == "none")
+      $("#canvas").drawImage({
+        source: "depart.png",
+        fromCenter: false
+      });
+    else if(currentScene == "wind")
       windDraw();
     else if(currentScene == "mermaid")
       mermaidDraw();
     else if(currentScene == "kraken")
       krakenDraw();
-}
+    else if(currentScene == "treasure")
+      treasureDraw();
+  }
 
 });

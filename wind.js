@@ -32,6 +32,12 @@ function windUpdate() {
 }
 
 function windDraw() {
+
+  $("#canvas").drawImage({
+    source: "wind.png",
+    fromCenter: false
+  });
+
   clouds.forEach(function(cloud) {
     cloud.draw();
   });
@@ -44,7 +50,7 @@ function windDraw() {
       x: 800,
       y: 450,
       font: "48pt sans-serif",
-      text: "You shall pass now..."
+      text: "Super, le vent nous porte vers le trésor !"
     });
   }
 }
