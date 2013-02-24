@@ -12,30 +12,29 @@ $(document).ready(function() {
   var currentScene = 'none'; // sirene - wind
   var playing = false;
 
-  onPress(Keyboard.W, function() {
-    currentScene = 'sirene';
+  // Scene selection
+  $(document).keydown(function(e) {
+    if(e.keyCode == Keyboard.X)
+      currentScene = 'sirene';
+    else if(e.keyCode == Keyboard.W)
+      currentScene = 'wind';
   });
 
-  onPress(Keyboard.X, function() {
-    currentScene = 'wind';
+  // Event loop
+  $(document).keydown(function(e) {
+    if (currentScene == "sirene") {
+      if(e.keyCode == Keyboard.UP)
+        $("#note1")[0].play();
+      else if(e.keyCode == Keyboard.LEFT)
+        $("#note2")[0].play();
+      else if(e.keyCode == Keyboard.RIGHT)
+        $("note3")[0].play();
+    }
+    else if(currentScene == "wind") {
+      if(e.keyCode == Keyboard.UP)
+      {}
+    }
   });
-
-
-  onPress(Keyboard.A, function() {
-    if (currentScene == "sirene")
-      $("#note1")[0].play();
-  });
-
-  onPress(Keyboard.Z, function() {
-    if (currentScene == "sirene")
-      $("#note2")[0].play();
-  });
-
-  onPress(Keyboard.E, function() {
-    if (currentScene == "sirene")
-      $("#note3")[0].play();
-  });
-
 
   $("#canvas").hide();
 
@@ -64,14 +63,14 @@ $(document).ready(function() {
     draw();
   }, 1000/FPS);
 
-  function Cloud(I) {
-    I.x = 0;
-    I.y = 0;
+  function createCloud(val) {
+    val = val || {};
 
-    I.width  = 100;
-    I.height = 100;
+    cloud = {};
+    cloud.x = val.x || 0;
+    cloud.y = val.y || 0;
 
-    I.draw = function() {
+    cloud.draw = function() {
       
       $("#canvas").drawImage({
         source: "nuage2.png",
@@ -80,22 +79,23 @@ $(document).ready(function() {
       });
     };
 
-    I.update = function() {
-   //   I.x += I.xVelocity;
-   //   I.y += I.yVelocity;
+    cloud.update = function() {
+   //   cloud.x += I.xVelocity;
+   //   cloud.y += I.yVelocity;
 
-      I.x += 20;
-      I.x %= 1600;
+      cloud.x += 20;
+      cloud.x %= 1600;
     };
 
-    return I;
+    return cloud;
   }
 
 
   // Scène vent
   var clouds = []
 
-  clouds.push(Cloud({x: 50}));
+  clouds.push(createCloud({y: 50}));
+  clouds.push(createCloud({y: 250}));
 
   clouds.forEach(function(cloud) {
     cloud.update();
