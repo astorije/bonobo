@@ -40,11 +40,11 @@ function krakenDraw() {
   else
     $("#canvas").drawText({
       fillStyle: "#9cf",
-      strokeStyle: "#25a",
+      strokeStyle: "#047",
       strokeWidth: 2,
       x: 800,
       y: 450,
-      font: "48pt sans-serif",
+      font: "60pt Pirates Writers",
       text: "Le sang a coulé, le kraken est mort !"
     });
 }

@@ -19,7 +19,7 @@ function startMermaidSequenceIfNeeded() {
 
 function mermaidUpdate() {
   if(mermaidWon)
-    mermaidScale /= 1.1;
+    mermaidScale /= 1.05;
 }
 
 function mermaidDraw() {
@@ -28,17 +28,6 @@ function mermaidDraw() {
       width: 1600,
       height: 900,
       fromCenter: false
-    });
-
-  if(mermaidWon)
-    $("#canvas").drawText({
-      fillStyle: "#9cf",
-      strokeStyle: "#25a",
-      strokeWidth: 2,
-      x: 800,
-      y: 450,
-      font: "48pt sans-serif",
-      text: "Regarde, la sirène s'enfuit !"
     });
 
   $("#canvas").drawImage({
@@ -60,11 +49,11 @@ function mermaidDraw() {
   if(mermaidWon)
     $("#canvas").drawText({
       fillStyle: "#9cf",
-      strokeStyle: "#25a",
+      strokeStyle: "#047",
       strokeWidth: 2,
       x: 800,
       y: 450,
-      font: "48pt sans-serif",
+      font: "60pt Pirates Writers",
       text: "Regarde, la sirène s'enfuit !"
     });
 }

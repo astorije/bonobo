@@ -27,11 +27,11 @@ function treasureDraw() {
   if(treasureCurrentStep >= treasureSteps)
     $("#canvas").drawText({
       fillStyle: "#9cf",
-      strokeStyle: "#25a",
+      strokeStyle: "#047",
       strokeWidth: 2,
       x: 800,
       y: 450,
-      font: "48pt sans-serif",
-      text: "Bravo, tu as trouvé le trésor !"
+      font: "60pt Pirates Writers",
+      text: "Ahoy, le trésor est à nous !"
     });
 }

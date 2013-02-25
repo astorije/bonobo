@@ -1,21 +1,14 @@
 body {
   margin: 0;
-  background-color: #d2d2ff;
-  color: #7a76c1;
-}
-
-canvas {
-  border: 1px solid red;
-}
-
-p {
+  background-color: #d4d4ff;
+  color: #7a76a1;
+  font-family: 'Pirates Writers', sans-serif;
   text-align: center;
-  font-size: 2em;
-  font-family: 'PiratesBay', sans-serif;
+  font-size: 3em;
 }
 
 a {
-  color: #7a76c1;
+  color: #7a76a1;
 }
 
 a:hover {
@@ -23,6 +16,6 @@ a:hover {
   color: #f2f2f2;
 }
 
-em {
+strong {
   font-size: 3em;
 }

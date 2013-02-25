@@ -28,14 +28,14 @@ function caveDraw() {
     width: 1600
   });
 
-  /*if(light)
+  if(light)
     $("#canvas").drawText({
       fillStyle: "#9cf",
-      strokeStyle: "#25a",
+      strokeStyle: "#047",
       strokeWidth: 2,
       x: 800,
       y: 450,
-      font: "48pt sans-serif",
-      text: ""
-    });*/
+      font: "60pt Pirates Writers",
+      text: "Et la lumière fut !"
+    });
 }
