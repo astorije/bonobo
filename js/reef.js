@@ -39,7 +39,7 @@ function reefDraw() {
   }
   else
     $("#canvas").drawImage({
-      source: reefCurrentStep % 2 == 0 ? "recif1.png" : "recif2.png",
+      source: reefCurrentStep % 2 == 0 ? "img/recif1.png" : "img/recif2.png",
       width: 1600,
       height: 900,
       fromCenter: false

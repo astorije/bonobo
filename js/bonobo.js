@@ -173,7 +173,7 @@ $(document).ready(function() {
 
     if(currentScene == "none")
       $("#canvas").drawImage({
-        source: "depart.png",
+        source: "img/depart.png",
         fromCenter: false
       });
     else if(currentScene == "wind")

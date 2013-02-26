@@ -1,8 +1,13 @@
+@font-face {
+    font-family: 'Pirates Writers';
+    src: url('../fonts/PiratesWriters.ttf');
+}
+
 body {
   margin: 0;
   background-color: #9cf;
   color: #047;
-  font-family: 'Pirates Writers', sans-serif;
+  font-family: 'Pirates Writers';
   text-align: center;
   font-size: 3em;
 }

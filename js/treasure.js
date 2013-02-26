@@ -20,7 +20,7 @@ function treasureDraw() {
   for(var i=treasureSteps; i > 0; --i)
     if(i >= treasureCurrentStep)
       $("#canvas").drawImage({
-        source: "ile" + i + ".png",
+        source: "img/ile" + i + ".png",
         fromCenter: false
       });
 

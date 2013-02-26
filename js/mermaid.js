@@ -31,7 +31,7 @@ function mermaidDraw() {
     });
 
   $("#canvas").drawImage({
-    source: "sirene0.png",
+    source: "img/sirene0.png",
     fromCenter: false,
     height: 900,
     width: 1600,
@@ -40,7 +40,7 @@ function mermaidDraw() {
 
   if(!mermaidWon)
     $("#canvas").drawImage({
-      source: "sirene1.png",
+      source: "img/sirene1.png",
       fromCenter: false,
       height: 900,
       width: 1600

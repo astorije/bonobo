@@ -4,7 +4,7 @@ function createCloud(val) {
   cloud = {};
   cloud.x = val.x || -100;
   cloud.y = val.y || 0;
-  cloud.source = clouds.length % 2 == 0 ? "nuage2.png" : "nuage3.png";
+  cloud.source = clouds.length % 2 == 0 ? "img/nuage2.png" : "img/nuage3.png";
   cloud.scale = cloud.y / 900;
 
   cloud.draw = function() {
@@ -34,7 +34,7 @@ function windUpdate() {
 function windDraw() {
 
   $("#canvas").drawImage({
-    source: "wind.png",
+    source: "img/wind.png",
     fromCenter: false
   });
 

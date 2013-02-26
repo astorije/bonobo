@@ -31,7 +31,7 @@ function krakenDraw() {
 
   if(!krakenDefeated)
     $("#canvas").drawImage({
-      source: "kraken.png",
+      source: "img/kraken.png",
       x: 800, y: 450,
       width: 800,
       height: 800,
